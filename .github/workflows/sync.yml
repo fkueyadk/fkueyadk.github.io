@@ -39,36 +39,55 @@ jobs:
           ]
 
           def is_blacklisted(url):
+
+              # 过滤 IPv6 源
+              if "http://[" in url:
+                  return True
+
+              if "https://[" in url:
+                  return True
+
               for item in BLACKLIST:
                   if item in url:
                       return True
+
               return False
 
 
-          # lemonTV、Guovin 仅保留 CCTV5/CCTV-5
+          # lemonTV、Guovin：仅保留 CCTV5 / CCTV-5
           def filter_cctv5(src):
-              with open(src, "r", encoding="utf-8", errors="ignore") as f:
-                  lines = f.readlines()
+
+              try:
+                  with open(src, "r", encoding="utf-8", errors="ignore") as f:
+                      lines = f.readlines()
+              except:
+                  return []
 
               out = []
 
               for i, line in enumerate(lines):
-                  if line.startswith("#EXTINF"):
 
-                      if ("CCTV5" in line) or ("CCTV-5" in line):
+                  if not line.startswith("#EXTINF"):
+                      continue
 
-                          if i + 1 < len(lines):
+                  if ("CCTV5" not in line) and ("CCTV-5" not in line):
+                      continue
 
-                              url = lines[i + 1]
+                  if i + 1 >= len(lines):
+                      continue
 
-                              if not is_blacklisted(url):
-                                  out.append(line)
-                                  out.append(url)
+                  url = lines[i + 1]
+
+                  if is_blacklisted(url):
+                      continue
+
+                  out.append(line)
+                  out.append(url)
 
               return out
 
 
-          # FWC 保留全部频道，但过滤黑名单
+          # FWC：保留全部频道，但过滤黑名单和 IPv6
           def append_full_filtered(src):
 
               try:
@@ -111,7 +130,7 @@ jobs:
           # Guovin：仅保留 CCTV5
           result += filter_cctv5("guovin.m3u")
 
-          # FWC：保留全部频道，但删除黑名单源
+          # FWC：保留全部频道，但过滤黑名单和 IPv6
           result += append_full_filtered("fwc.m3u")
 
           with open("iptv.m3u", "w", encoding="utf-8") as f:
