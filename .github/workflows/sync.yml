@@ -1,29 +1,21 @@
       - name: Keep CCTV only
         run: |
-          awk '
-          BEGIN{
-            keep=0
-          }
+          python3 << 'EOF'
+          with open("source.m3u", "r", encoding="utf-8", errors="ignore") as f:
+              lines = f.readlines()
 
-          /^#EXTM3U/{
-            print
-            next
-          }
+          out = []
 
-          /^#EXTINF/{
-            if ($0 ~ /CCTV/) {
-              print
-              keep=1
-            } else {
-              keep=0
-            }
-            next
-          }
+          for i, line in enumerate(lines):
+              if line.startswith("#EXTM3U"):
+                  out.append(line)
 
-          {
-            if (keep==1) {
-              print
-              keep=0
-            }
-          }
-          ' source.m3u > iptv.m3u
+              elif line.startswith("#EXTINF") and "CCTV" in line:
+                  out.append(line)
+
+                  if i + 1 < len(lines):
+                      out.append(lines[i + 1])
+
+          with open("iptv.m3u", "w", encoding="utf-8") as f:
+              f.writelines(out)
+          EOF
