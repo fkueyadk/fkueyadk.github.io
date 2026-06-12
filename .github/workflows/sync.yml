@@ -17,26 +17,33 @@ jobs:
 
       - name: Download source IPTV
         run: |
-          curl -L "https://raw.githubusercontent.com/jia070310/lemonTV/refs/heads/main/iptv-fe.m3u" -o source.m3u
+          curl -L "https://raw.githubusercontent.com/jia070310/lemonTV/refs/heads/main/iptv-fe.m3u" -o lemon.m3u
+          curl -L "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u" -o guovin.m3u
 
-      - name: Keep CCTV only
+      - name: Filter and merge IPTV
         run: |
           python3 << 'EOF'
-          with open("source.m3u", "r", encoding="utf-8", errors="ignore") as f:
-              lines = f.readlines()
+          def filter_m3u(src, keyword):
+              with open(src, "r", encoding="utf-8", errors="ignore") as f:
+                  lines = f.readlines()
 
-          out = []
+              out = []
 
-          for i, line in enumerate(lines):
-              if line.startswith("#EXTM3U"):
-                  out.append(line)
-              elif line.startswith("#EXTINF") and "CCTV" in line:
-                  out.append(line)
-                  if i + 1 < len(lines):
-                      out.append(lines[i + 1])
+              for i, line in enumerate(lines):
+                  if line.startswith("#EXTINF") and keyword in line:
+                      out.append(line)
+                      if i + 1 < len(lines):
+                          out.append(lines[i + 1])
+
+              return out
+
+          result = ["#EXTM3U\n"]
+
+          result += filter_m3u("lemon.m3u", "CCTV")
+          result += filter_m3u("guovin.m3u", "CCTV-5")
 
           with open("iptv.m3u", "w", encoding="utf-8") as f:
-              f.writelines(out)
+              f.writelines(result)
           EOF
 
       - name: Commit and push
@@ -44,5 +51,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add iptv.m3u
-          git diff --cached --quiet || git commit -m "Auto Sync CCTV Only"
+          git diff --cached --quiet || git commit -m "Auto Sync CCTV IPTV"
           git push
