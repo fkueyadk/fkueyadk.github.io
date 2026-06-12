@@ -1,4 +1,4 @@
-name: Sync CCTV IPTV
+name: Sync IPTV
 
 on:
   schedule:
@@ -15,28 +15,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download source IPTV
+      - name: Download sources
         run: |
           curl -L "https://raw.githubusercontent.com/jia070310/lemonTV/refs/heads/main/iptv-fe.m3u" -o lemon.m3u
           curl -L "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u" -o guovin.m3u
           curl -L "http://82.156.243.185:33389/fwc.m3u" -o fwc.m3u
 
-      - name: Filter and merge IPTV
+      - name: Filter and merge
         run: |
           python3 << 'EOF'
-          def filter_m3u(src, keyword):
+          def filter_cctv5(src):
               with open(src, "r", encoding="utf-8", errors="ignore") as f:
                   lines = f.readlines()
 
               out = []
               for i, line in enumerate(lines):
-                  if line.startswith("#EXTINF") and keyword in line:
+                  if line.startswith("#EXTINF") and ("CCTV5" in line or "CCTV-5" in line):
                       out.append(line)
                       if i + 1 < len(lines):
                           out.append(lines[i + 1])
               return out
 
-          def append_full_m3u(src):
+          def append_full(src):
               with open(src, "r", encoding="utf-8", errors="ignore") as f:
                   lines = f.readlines()
 
@@ -44,9 +44,14 @@ jobs:
 
           result = ["#EXTM3U\n"]
 
-          result += filter_m3u("lemon.m3u", "CCTV")
-          result += filter_m3u("guovin.m3u", "CCTV-5")
-          result += append_full_m3u("fwc.m3u")
+          # lemonTV：只保留 CCTV5 / CCTV-5
+          result += filter_cctv5("lemon.m3u")
+
+          # Guovin：只保留 CCTV5 / CCTV-5
+          result += filter_cctv5("guovin.m3u")
+
+          # FWC：保留全部频道
+          result += append_full("fwc.m3u")
 
           with open("iptv.m3u", "w", encoding="utf-8") as f:
               f.writelines(result)
@@ -57,5 +62,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add iptv.m3u
-          git diff --cached --quiet || git commit -m "Auto Sync CCTV IPTV"
+          git diff --cached --quiet || git commit -m "Auto Sync IPTV"
           git push
