@@ -1,4 +1,4 @@
-name: Sync IPTV
+name: Sync CCTV IPTV
 
 on:
   schedule:
@@ -15,17 +15,49 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download IPTV
+      - name: Download source IPTV
         run: |
-          curl -L "https://raw.githubusercontent.com/jia070310/lemonTV/refs/heads/main/iptv-fe.m3u" -o iptv.m3u
+          curl -L "https://raw.githubusercontent.com/jia070310/lemonTV/refs/heads/main/iptv-fe.m3u" -o source.m3u
 
-      - name: Commit
+      - name: Keep CCTV only
+        run: |
+          python3 << 'PY'
+          import re
+
+          src = "source.m3u"
+          out = "iptv.m3u"
+
+          with open(src, "r", encoding="utf-8", errors="ignore") as f:
+              lines = [line.rstrip("\n") for line in f]
+
+          result = []
+          header = lines[0] if lines and lines[0].startswith("#EXTM3U") else "#EXTM3U"
+          result.append(header)
+
+          i = 0
+          while i < len(lines):
+              line = lines[i].strip()
+
+              if line.startswith("#EXTINF"):
+                  info = line
+                  url = lines[i + 1].strip() if i + 1 < len(lines) else ""
+
+                  if re.search(r"(CCTV|央视)", info, re.IGNORECASE):
+                      result.append(info)
+                      result.append(url)
+
+                  i += 2
+              else:
+                  i += 1
+
+          with open(out, "w", encoding="utf-8") as f:
+              f.write("\n".join(result) + "\n")
+          PY
+
+      - name: Commit and push
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-
           git add iptv.m3u
-
-          git diff --cached --quiet || git commit -m "Auto Sync IPTV"
-
+          git diff --cached --quiet || git commit -m "Auto Sync CCTV IPTV"
           git push
