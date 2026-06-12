@@ -19,6 +19,7 @@ jobs:
         run: |
           curl -L "https://raw.githubusercontent.com/jia070310/lemonTV/refs/heads/main/iptv-fe.m3u" -o lemon.m3u
           curl -L "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u" -o guovin.m3u
+          curl -L "http://82.156.243.185:33389/fwc.m3u" -o fwc.m3u
 
       - name: Filter and merge IPTV
         run: |
@@ -28,19 +29,24 @@ jobs:
                   lines = f.readlines()
 
               out = []
-
               for i, line in enumerate(lines):
                   if line.startswith("#EXTINF") and keyword in line:
                       out.append(line)
                       if i + 1 < len(lines):
                           out.append(lines[i + 1])
-
               return out
+
+          def append_full_m3u(src):
+              with open(src, "r", encoding="utf-8", errors="ignore") as f:
+                  lines = f.readlines()
+
+              return [line for line in lines if not line.startswith("#EXTM3U")]
 
           result = ["#EXTM3U\n"]
 
           result += filter_m3u("lemon.m3u", "CCTV")
           result += filter_m3u("guovin.m3u", "CCTV-5")
+          result += append_full_m3u("fwc.m3u")
 
           with open("iptv.m3u", "w", encoding="utf-8") as f:
               f.writelines(result)
