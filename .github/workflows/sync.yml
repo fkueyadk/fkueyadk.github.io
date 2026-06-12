@@ -36,6 +36,7 @@ jobs:
               "smart.pendy.dpdns.org",
               "cdn.jsdelivr.net/gh/iptvorganization",
               "cdn.99998888.cc"
+              "38.75.136.137"
           ]
 
           def is_blacklisted(url):
