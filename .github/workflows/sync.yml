@@ -19,48 +19,113 @@ jobs:
         run: |
           curl -L "https://raw.githubusercontent.com/jia070310/lemonTV/refs/heads/main/iptv-fe.m3u" -o lemon.m3u
           curl -L "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u" -o guovin.m3u
-          curl -L "http://82.156.243.185:33389/fwc.m3u" -o fwc.m3u
+          curl -L --max-time 15 "http://82.156.243.185:33389/fwc.m3u" -o fwc.m3u || touch fwc.m3u
 
       - name: Filter and merge
         run: |
           python3 << 'EOF'
+
+          BLACKLIST = [
+              "iptv.catvod.com",
+              "107.150.60.122",
+              "74.91.26.218",
+              "120.76.248.139",
+              "freetv.top",
+              "migu.188766.xyz",
+              "iptv.huuc.edu.cn",
+              "smart.pendy.dpdns.org",
+              "cdn.jsdelivr.net/gh/iptvorganization",
+              "cdn.99998888.cc"
+          ]
+
+          def is_blacklisted(url):
+              for item in BLACKLIST:
+                  if item in url:
+                      return True
+              return False
+
+
+          # lemonTV、Guovin 仅保留 CCTV5/CCTV-5
           def filter_cctv5(src):
               with open(src, "r", encoding="utf-8", errors="ignore") as f:
                   lines = f.readlines()
 
               out = []
+
               for i, line in enumerate(lines):
-                  if line.startswith("#EXTINF") and ("CCTV5" in line or "CCTV-5" in line):
-                      out.append(line)
-                      if i + 1 < len(lines):
-                          out.append(lines[i + 1])
+                  if line.startswith("#EXTINF"):
+
+                      if ("CCTV5" in line) or ("CCTV-5" in line):
+
+                          if i + 1 < len(lines):
+
+                              url = lines[i + 1]
+
+                              if not is_blacklisted(url):
+                                  out.append(line)
+                                  out.append(url)
+
               return out
 
-          def append_full(src):
-              with open(src, "r", encoding="utf-8", errors="ignore") as f:
-                  lines = f.readlines()
 
-              return [line for line in lines if not line.startswith("#EXTM3U")]
+          # FWC 保留全部频道，但过滤黑名单
+          def append_full_filtered(src):
+
+              try:
+                  with open(src, "r", encoding="utf-8", errors="ignore") as f:
+                      lines = f.readlines()
+              except:
+                  return []
+
+              out = []
+
+              i = 0
+
+              while i < len(lines):
+
+                  line = lines[i]
+
+                  if line.startswith("#EXTINF"):
+
+                      if i + 1 < len(lines):
+
+                          url = lines[i + 1]
+
+                          if not is_blacklisted(url):
+                              out.append(line)
+                              out.append(url)
+
+                      i += 2
+
+                  else:
+                      i += 1
+
+              return out
+
 
           result = ["#EXTM3U\n"]
 
-          # lemonTV：只保留 CCTV5 / CCTV-5
+          # lemonTV：仅保留 CCTV5
           result += filter_cctv5("lemon.m3u")
 
-          # Guovin：只保留 CCTV5 / CCTV-5
+          # Guovin：仅保留 CCTV5
           result += filter_cctv5("guovin.m3u")
 
-          # FWC：保留全部频道
-          result += append_full("fwc.m3u")
+          # FWC：保留全部频道，但删除黑名单源
+          result += append_full_filtered("fwc.m3u")
 
           with open("iptv.m3u", "w", encoding="utf-8") as f:
               f.writelines(result)
+
           EOF
 
       - name: Commit and push
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
           git add iptv.m3u
+
           git diff --cached --quiet || git commit -m "Auto Sync IPTV"
+
           git push
