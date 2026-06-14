@@ -22,10 +22,15 @@ jobs:
           curl -L --max-time 15 "http://82.156.243.185:33389/fwc.m3u" -o fwc.m3u || touch fwc.m3u
           curl -L "https://fkueyadk.github.io/iptv-full.m3u" -o iptv-full.m3u
 
-      - name: Filter, normalize, sort and merge
+      - name: Filter, EPG normalize, sort and merge
         run: |
           python3 << 'EOF'
+          import gzip
           import re
+          import urllib.request
+          import xml.etree.ElementTree as ET
+
+          EPG_URL = "http://epg.51zmt.top:8000/e1.xml.gz"
 
           BLACKLIST = [
               "iptv.catvod.com",
@@ -41,6 +46,61 @@ jobs:
               "38.75.136.137",
           ]
 
+          def normalize_key(name):
+              return (
+                  name.upper()
+                  .replace(" ", "")
+                  .replace("-", "")
+                  .replace("_", "")
+                  .replace("＋", "+")
+              )
+
+
+          ALIASES = {
+              "CCTV5": "CCTV5",
+              "CCTV5体育": "CCTV5",
+              "CCTV体育": "CCTV5",
+
+              "CCTV5+": "CCTV5+",
+              "CCTV5PLUS": "CCTV5+",
+              "CCTV5P": "CCTV5+",
+              "CCTV5+体育赛事": "CCTV5+",
+              "CCTV5P体育赛事": "CCTV5+",
+              "CCTV体育赛事": "CCTV5+",
+          }
+
+          ALIASES = {normalize_key(k): v for k, v in ALIASES.items()}
+
+
+          def load_epg_channels():
+              epg_channels = {}
+
+              try:
+                  data = urllib.request.urlopen(EPG_URL, timeout=30).read()
+                  xml_data = gzip.decompress(data)
+                  root = ET.fromstring(xml_data)
+              except Exception as e:
+                  print(f"Failed to load EPG: {e}")
+                  return epg_channels
+
+              for channel in root.findall("channel"):
+                  channel_id = channel.get("id", "")
+                  display = channel.find("display-name")
+
+                  if display is None or not display.text:
+                      continue
+
+                  name = display.text.strip()
+                  key = normalize_key(name)
+
+                  epg_channels[key] = {
+                      "id": channel_id,
+                      "name": name,
+                  }
+
+              return epg_channels
+
+
           def is_blacklisted(url):
               if "http://[" in url or "https://[" in url:
                   return True
@@ -55,96 +115,75 @@ jobs:
               return extinf.rsplit(",", 1)[1].strip()
 
 
-          def is_cctv5_entry(extinf):
-              text = extinf.upper().replace(" ", "")
-              return (
-                  "CCTV5" in text
-                  or "CCTV-5" in text
-                  or "CCTV5+" in text
-                  or "CCTV-5+" in text
-              )
+          def find_epg_channel(original_name, epg_channels):
+              key = normalize_key(original_name)
+              alias_name = ALIASES.get(key)
 
+              if alias_name:
+                  alias_key = normalize_key(alias_name)
+                  if alias_key in epg_channels:
+                      return epg_channels[alias_key]
 
-          def normalize_channel_name(name):
-              raw = name.strip()
-              compact = raw.upper().replace(" ", "").replace("＋", "+")
+                  return {
+                      "id": alias_name,
+                      "name": alias_name,
+                  }
 
-              cctv5_plus_names = {
-                  "CCTV5+",
-                  "CCTV-5+",
-                  "CCTV5PLUS",
-                  "CCTV-5PLUS",
-                  "CCTV5P",
-                  "CCTV-5P",
-                  "CCTV5P体育赛事",
-                  "CCTV-5P体育赛事",
-                  "CCTV5+体育赛事",
-                  "CCTV-5+体育赛事",
-                  "CCTV体育赛事",
+              if key in epg_channels:
+                  return epg_channels[key]
+
+              return {
+                  "id": original_name,
+                  "name": original_name,
               }
 
-              cctv5_names = {
-                  "CCTV5",
-                  "CCTV-5",
-                  "CCTV5体育",
-                  "CCTV-5体育",
-                  "CCTV体育",
-              }
 
-              if compact in cctv5_plus_names:
-                  return "CCTV-5+"
-
-              if compact in cctv5_names:
-                  return "CCTV-5"
-
-              match = re.match(r"^CCTV[- ]?(\d+)(.*)$", raw, re.I)
-              if match:
-                  number = match.group(1)
-                  suffix = match.group(2).strip()
-
-                  if suffix:
-                      return f"CCTV-{number}{suffix}"
-
-                  return f"CCTV-{number}"
-
-              return raw
+          def is_cctv5_name(name):
+              epg_name = find_epg_channel(name, EPG_CHANNELS)["name"]
+              return epg_name in {"CCTV5", "CCTV5+"}
 
 
-          def replace_channel_name(extinf, name):
+          def replace_channel_name(extinf, original_name, epg_channel):
+              epg_id = epg_channel["id"]
+              epg_name = epg_channel["name"]
+
               if "," in extinf:
-                  extinf = extinf.rsplit(",", 1)[0] + "," + name
+                  extinf = extinf.rsplit(",", 1)[0] + "," + epg_name
 
-              if 'tvg-name="' in extinf:
-                  extinf = re.sub(r'tvg-name="[^"]*"', f'tvg-name="{name}"', extinf)
-              else:
-                  extinf = extinf.replace("#EXTINF:-1", f'#EXTINF:-1 tvg-name="{name}"', 1)
+              extinf = re.sub(r'\s+tvg-id="[^"]*"', "", extinf)
+              extinf = re.sub(r'\s+tvg-name="[^"]*"', "", extinf)
+
+              extinf = extinf.replace(
+                  "#EXTINF:-1",
+                  f'#EXTINF:-1 tvg-id="{epg_id}" tvg-name="{epg_name}"',
+                  1
+              )
 
               return extinf.rstrip("\n") + "\n"
 
 
-          def append_entry(entries, extinf, url, cctv5_only=False, cctv5_keyword_only=False):
+          def append_entry(entries, extinf, url, cctv5_only=False):
               if is_blacklisted(url):
                   return
 
-              if cctv5_keyword_only and not is_cctv5_entry(extinf):
+              original_name = get_channel_name(extinf)
+
+              if not original_name:
                   return
 
-              name = normalize_channel_name(get_channel_name(extinf))
-
-              if not name:
+              if cctv5_only and not is_cctv5_name(original_name):
                   return
 
-              if cctv5_only and name not in {"CCTV-5", "CCTV-5+"}:
-                  return
+              epg_channel = find_epg_channel(original_name, EPG_CHANNELS)
 
               entries.append({
-                  "name": name,
-                  "extinf": replace_channel_name(extinf, name),
+                  "name": epg_channel["name"],
+                  "extinf": replace_channel_name(extinf, original_name, epg_channel),
                   "url": url if url.endswith("\n") else url + "\n",
               })
 
 
-          def read_entries(src, cctv5_only=False, cctv5_keyword_only=False):
+          def read_entries(src, cctv5_only=False):
               try:
                   with open(src, "r", encoding="utf-8", errors="ignore") as f:
                       lines = f.readlines()
@@ -158,7 +197,7 @@ jobs:
                   line = lines[i]
 
                   if line.startswith("#EXTINF") and i + 1 < len(lines):
-                      append_entry(entries, line, lines[i + 1], cctv5_only, cctv5_keyword_only)
+                      append_entry(entries, line, lines[i + 1], cctv5_only)
                       i += 2
                   else:
                       i += 1
@@ -166,39 +205,48 @@ jobs:
               return entries
 
 
-          entries = []
-
-          entries += read_entries("lemon.m3u", cctv5_only=True)
-          entries += read_entries("guovin.m3u", cctv5_only=True)
-
-          # 从 iptv-full.m3u 里面提取包含 CCTV5 / CCTV-5 / CCTV5+ / CCTV-5+ 的直播源
-          entries += read_entries("iptv-full.m3u", cctv5_keyword_only=True)
-
-          # FWC 保留全部频道
-          entries += read_entries("fwc.m3u", cctv5_only=False)
-
-
           def sort_key(entry):
               name = entry["name"]
 
-              if name == "CCTV-5":
+              if name == "CCTV5":
                   return (0, name)
 
-              if name == "CCTV-5+":
+              if name == "CCTV5+":
                   return (1, name)
 
-              match = re.match(r"^CCTV-(\d+)", name)
+              match = re.match(r"^CCTV(\d+)$", name)
               if match:
                   return (2, int(match.group(1)), name)
 
               return (3, name)
 
 
+          EPG_CHANNELS = load_epg_channels()
+
+          entries = []
+
+          entries += read_entries("lemon.m3u", cctv5_only=True)
+          entries += read_entries("guovin.m3u", cctv5_only=True)
+
+          # 从 iptv-full.m3u 里面提取 CCTV5 / CCTV5+，并按 EPG 名称写入
+          entries += read_entries("iptv-full.m3u", cctv5_only=True)
+
+          # FWC 保留全部频道，并尽量按 EPG 名称写入
+          entries += read_entries("fwc.m3u", cctv5_only=False)
+
           entries.sort(key=sort_key)
 
-          result = ["#EXTM3U\n"]
+          result = [f'#EXTM3U x-tvg-url="{EPG_URL}"\n']
+
+          seen = set()
 
           for entry in entries:
+              key = (entry["name"], entry["url"].strip())
+
+              if key in seen:
+                  continue
+
+              seen.add(key)
               result.append(entry["extinf"])
               result.append(entry["url"])
 
