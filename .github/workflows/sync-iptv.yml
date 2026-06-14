@@ -1,4 +1,4 @@
-name: Sync Filtered IPTV
+name: Sync Filtered IPTV Full
 
 on:
   schedule:
@@ -15,42 +15,204 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download source
+      - name: Download sources
         run: |
           curl -L "https://raw.githubusercontent.com/ZhaoBing522/IPTV/refs/heads/main/iptv.m3u" -o source.m3u
+          curl -L "https://live.zbds.top/tv/iptv4.m3u" -o zbds.m3u
 
-      - name: Keep only selected IP sources
+      - name: Keep selected IP and domain sources
         run: |
           python3 << 'EOF'
-          KEEP_IPS = {
+          from urllib.parse import urlparse
+
+          SOURCE_IPS = {
               "120.48.231.201",
               "139.227.21.22",
               "223.78.65.165",
           }
 
-          with open("source.m3u", "r", encoding="utf-8", errors="ignore") as f:
-              lines = f.readlines()
+          ZBDS_IPS = {
+              "110.153.180.106",
+              "111.43.126.240",
+              "112.27.235.94",
+              "112.46.85.60",
+              "175.155.106.72",
+              "182.150.115.21",
+              "183.237.95.108",
+              "218.84.127.245",
+              "222.128.55.152",
+              "222.169.85.8",
+              "36.32.174.67",
+              "38.64.72.148",
+              "61.221.215.25",
+              "74.91.26.218",
+          }
+
+          ZBDS_DOMAINS = {
+              "0472.org",
+              "5ddce30eb4b55.streamlock.net",
+              "615bbf179ba53515dccad7b1da5d1ad9.livehwc3.cn",
+              "ali-m-l.cztv.com",
+              "alimov2.a.kwimgs.com",
+              "amchls.wns.live",
+              "channel.wcrmt.cn",
+              "dspdhls.appcoo.com",
+              "dxtx.hntv.tv",
+              "english-livetx.cgtn.com",
+              "epg.51zmt.top",
+              "epg.pw",
+              "espanol-liveali.cgtn.com",
+              "file.loulannews.cn",
+              "gcalic.v.myalicdn.com",
+              "gctxyc.liveplay.myqcloud.com",
+              "global.cgtn.cicc.media.caton.cloud",
+              "hls.nntv.cn",
+              "hlsal-ldvt.qing.mgtv.com",
+              "hslive.hsnewsnet.com",
+              "huaiyin-tv-replay.cm.jstv.com",
+              "hwapi.yntv.net",
+              "hzcm-live.media.hugd.com",
+              "jwcdnqx.hebyun.com.cn",
+              "jwplay.hebyun.com.cn",
+              "l.cztvcloud.com",
+              "lbyzztfe.live.sxmty.com",
+              "live.264788.xyz",
+              "live.gdtv.ah.cn",
+              "live.iwcmt.cn",
+              "live.jinchuanrmt.com",
+              "live.metshop.top",
+              "live.qthnews.org.cn",
+              "live.shaoxing.com.cn",
+              "live.spccmc.com",
+              "live.xysrmt.cn",
+              "live.zohi.tv",
+              "live.zzyxxw.com",
+              "live-auth.51kandianshi.com",
+              "liveout.xntv.tv",
+              "m3u8.channel.dzsm.com",
+              "m3u8channel.yunxya.com",
+              "newcntv.qcloudcdn.com",
+              "p2.bdstatic.com",
+              "p2hs.vzan.com",
+              "pili-live-hls.ybcxjd.com",
+              "pili-live-hls-sjxgz2024.sobeylive.com",
+              "play.kankanlive.com",
+              "play.yunxya.com",
+              "russian-livews.cgtn.com",
+              "srs.iyb983.cn",
+              "stream.ads.ottera.tv",
+              "stream.jmtv.com.cn",
+              "stream.sun0769.com",
+              "tencentplay.gztv.com",
+              "test1.live.sdetv.com.cn",
+              "tntgjhjb.live.sxmty.com",
+              "traffic.jbh.tjbh.com",
+              "tvfile.jyrmt.cn",
+              "txmov2.a.kwimgs.com",
+              "tylive.kan0512.com",
+              "vd2.bdstatic.com",
+              "video.epaper.pybtv.cn",
+              "wtv.tools.yigechengzi.com",
+              "www.goodiptv.club",
+              "www.guzhenm.com",
+              "yixing-tv-ori-hls.jstv.com",
+              "zb.gxlbamc.com",
+              "zbbf2.ahbztv.com",
+              "zb-live.ynurl.com",
+              "zjrtv.vip",
+              "zjtv-wshls.homecdn.com",
+          }
+
+          def get_host(url):
+              try:
+                  host = urlparse(url.strip()).hostname
+              except:
+                  return ""
+
+              return host.lower() if host else ""
+
+
+          def host_matches(host, ips, domains):
+              if host in ips:
+                  return True
+
+              return any(host == domain or host.endswith("." + domain) for domain in domains)
+
+
+          def block_matches(block, ips, domains):
+              for line in block:
+                  line = line.strip()
+
+                  if not line.startswith(("http://", "https://")):
+                      continue
+
+                  host = get_host(line)
+
+                  if host_matches(host, ips, domains):
+                      return True
+
+              return False
+
+
+          def read_blocks(src, ips, domains):
+              try:
+                  with open(src, "r", encoding="utf-8", errors="ignore") as f:
+                      lines = f.readlines()
+              except:
+                  return []
+
+              kept = []
+              current = []
+
+              for line in lines:
+                  if line.startswith("#EXTM3U"):
+                      continue
+
+                  if line.startswith("#EXTINF"):
+                      if current and block_matches(current, ips, domains):
+                          kept.append(current)
+
+                      current = [line]
+                  elif current:
+                      current.append(line)
+
+              if current and block_matches(current, ips, domains):
+                  kept.append(current)
+
+              return kept
+
+
+          blocks = []
+          blocks += read_blocks("source.m3u", SOURCE_IPS, set())
+          blocks += read_blocks("zbds.m3u", ZBDS_IPS, ZBDS_DOMAINS)
 
           result = ["#EXTM3U\n"]
-          i = 0
+          seen_urls = set()
 
-          while i < len(lines):
-              line = lines[i]
+          for block in blocks:
+              urls = [
+                  line.strip()
+                  for line in block
+                  if line.strip().startswith(("http://", "https://"))
+              ]
 
-              if line.startswith("#EXTINF") and i + 1 < len(lines):
-                  extinf = line
-                  url = lines[i + 1]
+              if not urls:
+                  continue
 
-                  if any(ip in url for ip in KEEP_IPS):
-                      result.append(extinf if extinf.endswith("\n") else extinf + "\n")
-                      result.append(url if url.endswith("\n") else url + "\n")
+              main_url = urls[-1]
 
-                  i += 2
-              else:
-                  i += 1
+              if main_url in seen_urls:
+                  continue
+
+              seen_urls.add(main_url)
+
+              for line in block:
+                  result.append(line if line.endswith("\n") else line + "\n")
 
           with open("iptv-full.m3u", "w", encoding="utf-8") as f:
               f.writelines(result)
+
+          print(f"Saved {len(seen_urls)} streams to iptv-full.m3u")
           EOF
 
       - name: Commit and push
@@ -60,6 +222,6 @@ jobs:
 
           git add iptv-full.m3u
 
-          git diff --cached --quiet || git commit -m "Auto sync filtered IPTV"
+          git diff --cached --quiet || git commit -m "Auto sync filtered IPTV full"
 
           git push
