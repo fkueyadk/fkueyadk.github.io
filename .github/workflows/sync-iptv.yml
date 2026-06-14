@@ -1,0 +1,65 @@
+name: Sync Filtered IPTV
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download source
+        run: |
+          curl -L "https://raw.githubusercontent.com/ZhaoBing522/IPTV/refs/heads/main/iptv.m3u" -o source.m3u
+
+      - name: Keep only selected IP sources
+        run: |
+          python3 << 'EOF'
+          KEEP_IPS = {
+              "120.48.231.201",
+              "139.227.21.22",
+              "223.78.65.165",
+          }
+
+          with open("source.m3u", "r", encoding="utf-8", errors="ignore") as f:
+              lines = f.readlines()
+
+          result = ["#EXTM3U\n"]
+          i = 0
+
+          while i < len(lines):
+              line = lines[i]
+
+              if line.startswith("#EXTINF") and i + 1 < len(lines):
+                  extinf = line
+                  url = lines[i + 1]
+
+                  if any(ip in url for ip in KEEP_IPS):
+                      result.append(extinf if extinf.endswith("\n") else extinf + "\n")
+                      result.append(url if url.endswith("\n") else url + "\n")
+
+                  i += 2
+              else:
+                  i += 1
+
+          with open("iptv-full.m3u", "w", encoding="utf-8") as f:
+              f.writelines(result)
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add iptv-full.m3u
+
+          git diff --cached --quiet || git commit -m "Auto sync filtered IPTV"
+
+          git push
