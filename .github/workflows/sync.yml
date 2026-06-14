@@ -55,9 +55,19 @@ jobs:
               return extinf.rsplit(",", 1)[1].strip()
 
 
+          def is_cctv5_entry(extinf):
+              text = extinf.upper().replace(" ", "")
+              return (
+                  "CCTV5" in text
+                  or "CCTV-5" in text
+                  or "CCTV5+" in text
+                  or "CCTV-5+" in text
+              )
+
+
           def normalize_channel_name(name):
               raw = name.strip()
-              compact = raw.upper().replace(" ", "")
+              compact = raw.upper().replace(" ", "").replace("＋", "+")
 
               cctv5_plus_names = {
                   "CCTV5+",
@@ -98,3 +108,112 @@ jobs:
                   return f"CCTV-{number}"
 
               return raw
+
+
+          def replace_channel_name(extinf, name):
+              if "," in extinf:
+                  extinf = extinf.rsplit(",", 1)[0] + "," + name
+
+              if 'tvg-name="' in extinf:
+                  extinf = re.sub(r'tvg-name="[^"]*"', f'tvg-name="{name}"', extinf)
+              else:
+                  extinf = extinf.replace("#EXTINF:-1", f'#EXTINF:-1 tvg-name="{name}"', 1)
+
+              return extinf.rstrip("\n") + "\n"
+
+
+          def append_entry(entries, extinf, url, cctv5_only=False, cctv5_keyword_only=False):
+              if is_blacklisted(url):
+                  return
+
+              if cctv5_keyword_only and not is_cctv5_entry(extinf):
+                  return
+
+              name = normalize_channel_name(get_channel_name(extinf))
+
+              if not name:
+                  return
+
+              if cctv5_only and name not in {"CCTV-5", "CCTV-5+"}:
+                  return
+
+              entries.append({
+                  "name": name,
+                  "extinf": replace_channel_name(extinf, name),
+                  "url": url if url.endswith("\n") else url + "\n",
+              })
+
+
+          def read_entries(src, cctv5_only=False, cctv5_keyword_only=False):
+              try:
+                  with open(src, "r", encoding="utf-8", errors="ignore") as f:
+                      lines = f.readlines()
+              except:
+                  return []
+
+              entries = []
+              i = 0
+
+              while i < len(lines):
+                  line = lines[i]
+
+                  if line.startswith("#EXTINF") and i + 1 < len(lines):
+                      append_entry(entries, line, lines[i + 1], cctv5_only, cctv5_keyword_only)
+                      i += 2
+                  else:
+                      i += 1
+
+              return entries
+
+
+          entries = []
+
+          entries += read_entries("lemon.m3u", cctv5_only=True)
+          entries += read_entries("guovin.m3u", cctv5_only=True)
+
+          # 从 iptv-full.m3u 里面提取包含 CCTV5 / CCTV-5 / CCTV5+ / CCTV-5+ 的直播源
+          entries += read_entries("iptv-full.m3u", cctv5_keyword_only=True)
+
+          # FWC 保留全部频道
+          entries += read_entries("fwc.m3u", cctv5_only=False)
+
+
+          def sort_key(entry):
+              name = entry["name"]
+
+              if name == "CCTV-5":
+                  return (0, name)
+
+              if name == "CCTV-5+":
+                  return (1, name)
+
+              match = re.match(r"^CCTV-(\d+)", name)
+              if match:
+                  return (2, int(match.group(1)), name)
+
+              return (3, name)
+
+
+          entries.sort(key=sort_key)
+
+          result = ["#EXTM3U\n"]
+
+          for entry in entries:
+              result.append(entry["extinf"])
+              result.append(entry["url"])
+
+          with open("iptv.m3u", "w", encoding="utf-8") as f:
+              f.writelines(result)
+
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add iptv.m3u
+
+          git diff --cached --quiet || git commit -m "Auto Sync IPTV"
+
+          git push
