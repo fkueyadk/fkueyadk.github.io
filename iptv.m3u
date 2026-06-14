@@ -11,14 +11,14 @@ http://82.156.243.185:36888/av3a/cctv5n.m3u8
 http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=2ed8b7f9549a59acec418e9da558655c&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260614100043&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.98.61.247&SecurityKey=20260614100043&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.0.4-RELEASE&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=768b14ef7f1832b5695f7f2d1f7b9264&ddCalcu=4766v28a9bxb1a74fe1fd72ff178f3529b65&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV-5+" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/288/202204010048_1626679712843_H32_1080.webp",group-title="央视专版",,CCTV-5+
 http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=2ed8b7f9549a59acec418e9da558655c&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260614100043&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.98.61.247&SecurityKey=20260614100043&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.0.4-RELEASE&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=768b14ef7f1832b5695f7f2d1f7b9264&ddCalcu=4766v28a9bxb1a74fe1fd72ff178f3529b65&sv=10004&ct=android
+#EXTINF:-1 tvg-name="CCTV-5+" tvg-logo="https://cdn.jsdelivr.net/gh/sparkssssssssss/epg/logo/cctv5p.png" group-title="普通频道",CCTV-5+
+http://82.156.243.185:36888/av3a/cctv5pn.m3u8
 #EXTINF:-1 tvg-name="CCTV-4k" tvg-logo="https://cdn.jsdelivr.net/gh/sparkssssssssss/epg/logo/cctv4k.png" group-title="普通频道",CCTV-4k
 http://82.156.243.185:36888/av3a/cctv4kn.m3u8
 #EXTINF:-1 tvg-name="CCTV-4k-av3a" tvg-logo="https://cdn.jsdelivr.net/gh/sparkssssssssss/epg/logo/cctv4k.png" group-title="AV3A频道",CCTV-4k-av3a
 http://82.156.243.185:36888/av3a/cctv4k.m3u8
 #EXTINF:-1 tvg-name="CCTV-5-av3a" tvg-logo="https://cdn.jsdelivr.net/gh/sparkssssssssss/epg/logo/cctv5.png" group-title="AV3A频道",CCTV-5-av3a
 http://82.156.243.185:36888/av3a/cctv5.m3u8
-#EXTINF:-1 tvg-name="CCTV-5p" tvg-logo="https://cdn.jsdelivr.net/gh/sparkssssssssss/epg/logo/cctv5p.png" group-title="普通频道",CCTV-5p
-http://82.156.243.185:36888/av3a/cctv5pn.m3u8
 #EXTINF:-1 tvg-name="CCTV-5p-av3a" tvg-logo="https://cdn.jsdelivr.net/gh/sparkssssssssss/epg/logo/cctv5p.png" group-title="AV3A频道",CCTV-5p-av3a
 http://82.156.243.185:36888/av3a/cctv5p.m3u8
 #EXTINF:-1 tvg-name="CCTV-8k" tvg-logo="https://cdn.jsdelivr.net/gh/sparkssssssssss/epg/logo/cctv8k.png" group-title="普通频道",CCTV-8k
