@@ -20,10 +20,16 @@ jobs:
           curl -L "https://raw.githubusercontent.com/ZhaoBing522/IPTV/refs/heads/main/iptv.m3u" -o source.m3u
           curl -L "https://live.zbds.top/tv/iptv4.m3u" -o zbds.m3u
 
-      - name: Keep selected IP and domain sources
+      - name: Filter, EPG normalize, sort and merge
         run: |
           python3 << 'EOF'
+          import gzip
+          import re
+          import urllib.request
+          import xml.etree.ElementTree as ET
           from urllib.parse import urlparse
+
+          EPG_URL = "http://epg.51zmt.top:8000/e1.xml.gz"
 
           SOURCE_IPS = {
               "120.48.231.201",
@@ -123,6 +129,79 @@ jobs:
               "zjtv-wshls.homecdn.com",
           }
 
+          CHANNEL_ALIASES = {
+              "CCTV5": "CCTV5",
+              "CCTV-5": "CCTV5",
+              "CCTV 5": "CCTV5",
+              "CCTV5体育": "CCTV5",
+              "CCTV-5体育": "CCTV5",
+              "CCTV体育": "CCTV5",
+              "央视体育": "CCTV5",
+              "央五": "CCTV5",
+
+              "CCTV5+": "CCTV5+",
+              "CCTV-5+": "CCTV5+",
+              "CCTV 5+": "CCTV5+",
+              "CCTV5PLUS": "CCTV5+",
+              "CCTV-5PLUS": "CCTV5+",
+              "CCTV5P": "CCTV5+",
+              "CCTV-5P": "CCTV5+",
+              "CCTV5+体育赛事": "CCTV5+",
+              "CCTV-5+体育赛事": "CCTV5+",
+              "CCTV5P体育赛事": "CCTV5+",
+              "CCTV-5P体育赛事": "CCTV5+",
+              "CCTV体育赛事": "CCTV5+",
+              "央视体育赛事": "CCTV5+",
+          }
+
+          def normalize_key(name):
+              return (
+                  name.upper()
+                  .replace(" ", "")
+                  .replace("-", "")
+                  .replace("_", "")
+                  .replace("＋", "+")
+                  .replace("高清", "")
+                  .replace("超清", "")
+                  .replace("蓝光", "")
+                  .replace("标清", "")
+                  .replace("频道", "")
+                  .replace("HD", "")
+                  .replace("1080P", "")
+                  .replace("720P", "")
+              )
+
+          CHANNEL_ALIASES = {
+              normalize_key(alias): epg_name
+              for alias, epg_name in CHANNEL_ALIASES.items()
+          }
+
+          def load_epg_channels():
+              epg_channels = {}
+
+              try:
+                  data = urllib.request.urlopen(EPG_URL, timeout=30).read()
+                  xml_data = gzip.decompress(data)
+                  root = ET.fromstring(xml_data)
+              except Exception as e:
+                  print(f"Failed to load EPG: {e}")
+                  return epg_channels
+
+              for channel in root.findall("channel"):
+                  channel_id = channel.get("id", "")
+
+                  for display in channel.findall("display-name"):
+                      if not display.text:
+                          continue
+
+                      name = display.text.strip()
+                      epg_channels[normalize_key(name)] = {
+                          "id": channel_id,
+                          "name": name,
+                      }
+
+              return epg_channels
+
           def get_host(url):
               try:
                   host = urlparse(url.strip()).hostname
@@ -131,13 +210,11 @@ jobs:
 
               return host.lower() if host else ""
 
-
           def host_matches(host, ips, domains):
               if host in ips:
                   return True
 
               return any(host == domain or host.endswith("." + domain) for domain in domains)
-
 
           def block_matches(block, ips, domains):
               for line in block:
@@ -153,15 +230,102 @@ jobs:
 
               return False
 
+          def get_channel_name(extinf):
+              if "," not in extinf:
+                  return ""
 
-          def read_blocks(src, ips, domains):
+              return extinf.rsplit(",", 1)[1].strip()
+
+          def find_epg_channel(name, epg_channels):
+              key = normalize_key(name)
+              alias_name = CHANNEL_ALIASES.get(key)
+
+              if alias_name:
+                  alias_key = normalize_key(alias_name)
+
+                  if alias_key in epg_channels:
+                      return epg_channels[alias_key]
+
+                  return {
+                      "id": alias_name,
+                      "name": alias_name,
+                  }
+
+              if key in epg_channels:
+                  return epg_channels[key]
+
+              return {
+                  "id": name,
+                  "name": name,
+              }
+
+          def quote_attr(value):
+              return str(value).replace('"', "&quot;")
+
+          def replace_extinf_name(extinf, epg_channel):
+              epg_id = quote_attr(epg_channel["id"])
+              epg_name = quote_attr(epg_channel["name"])
+
+              if "," in extinf:
+                  prefix = extinf.rsplit(",", 1)[0]
+              else:
+                  prefix = extinf.rstrip("\n")
+
+              prefix = re.sub(r'\s+tvg-id="[^"]*"', "", prefix)
+              prefix = re.sub(r'\s+tvg-name="[^"]*"', "", prefix)
+
+              prefix = re.sub(
+                  r'^(#EXTINF:[^,\s]+)',
+                  lambda m: f'{m.group(1)} tvg-id="{epg_id}" tvg-name="{epg_name}"',
+                  prefix,
+                  count=1,
+              )
+
+              return prefix + "," + epg_channel["name"] + "\n"
+
+          def get_main_url(block):
+              urls = [
+                  line.strip()
+                  for line in block
+                  if line.strip().startswith(("http://", "https://"))
+              ]
+
+              return urls[-1] if urls else ""
+
+          def make_entry(block, epg_channels):
+              extinf_index = None
+
+              for index, line in enumerate(block):
+                  if line.startswith("#EXTINF"):
+                      extinf_index = index
+                      break
+
+              if extinf_index is None:
+                  return None
+
+              original_name = get_channel_name(block[extinf_index])
+
+              if not original_name:
+                  return None
+
+              epg_channel = find_epg_channel(original_name, epg_channels)
+              new_block = list(block)
+              new_block[extinf_index] = replace_extinf_name(block[extinf_index], epg_channel)
+
+              return {
+                  "name": epg_channel["name"],
+                  "url": get_main_url(block),
+                  "block": new_block,
+              }
+
+          def read_entries(src, ips, domains, epg_channels):
               try:
                   with open(src, "r", encoding="utf-8", errors="ignore") as f:
                       lines = f.readlines()
               except:
                   return []
 
-              kept = []
+              entries = []
               current = []
 
               for line in lines:
@@ -170,43 +334,59 @@ jobs:
 
                   if line.startswith("#EXTINF"):
                       if current and block_matches(current, ips, domains):
-                          kept.append(current)
+                          entry = make_entry(current, epg_channels)
+
+                          if entry:
+                              entries.append(entry)
 
                       current = [line]
                   elif current:
                       current.append(line)
 
               if current and block_matches(current, ips, domains):
-                  kept.append(current)
+                  entry = make_entry(current, epg_channels)
 
-              return kept
+                  if entry:
+                      entries.append(entry)
 
+              return entries
 
-          blocks = []
-          blocks += read_blocks("source.m3u", SOURCE_IPS, set())
-          blocks += read_blocks("zbds.m3u", ZBDS_IPS, ZBDS_DOMAINS)
+          def sort_key(entry):
+              name = entry["name"]
+              key = normalize_key(name)
 
-          result = ["#EXTM3U\n"]
+              cctv_match = re.match(r"^CCTV(\d+)(.*)$", key)
+
+              if cctv_match:
+                  suffix = cctv_match.group(2)
+                  suffix_order = 1 if suffix == "+" else 0
+                  return (0, int(cctv_match.group(1)), suffix_order, name)
+
+              return (1, name)
+
+          EPG_CHANNELS = load_epg_channels()
+
+          entries = []
+          entries += read_entries("source.m3u", SOURCE_IPS, set(), EPG_CHANNELS)
+          entries += read_entries("zbds.m3u", ZBDS_IPS, ZBDS_DOMAINS, EPG_CHANNELS)
+
+          entries.sort(key=sort_key)
+
+          result = [f'#EXTM3U x-tvg-url="{EPG_URL}"\n']
           seen_urls = set()
 
-          for block in blocks:
-              urls = [
-                  line.strip()
-                  for line in block
-                  if line.strip().startswith(("http://", "https://"))
-              ]
+          for entry in entries:
+              main_url = entry["url"]
 
-              if not urls:
+              if not main_url:
                   continue
-
-              main_url = urls[-1]
 
               if main_url in seen_urls:
                   continue
 
               seen_urls.add(main_url)
 
-              for line in block:
+              for line in entry["block"]:
                   result.append(line if line.endswith("\n") else line + "\n")
 
           with open("iptv-full.m3u", "w", encoding="utf-8") as f:
