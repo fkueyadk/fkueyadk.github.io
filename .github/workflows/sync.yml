@@ -66,7 +66,6 @@ jobs:
               "CCTV5+体育赛事": "CCTV5+",
               "CCTV5P体育赛事": "CCTV5+",
               "CCTV体育赛事": "CCTV5+",
-              "CCTV风云足球": "CCTV风云足球",
           }
 
           ALIASES = {normalize_key(k): v for k, v in ALIASES.items()}
@@ -86,6 +85,7 @@ jobs:
                   display = channel.find("display-name")
                   if display is None or not display.text:
                       continue
+
                   name = display.text.strip()
                   epg_channels[normalize_key(name)] = {
                       "id": channel_id,
@@ -203,6 +203,7 @@ jobs:
                       url = lines[i + 1].strip()
 
                       if "CCTV风云足球" in line and "https://epg.pw/stream" in url:
+                          print("Found CCTV风云足球 epg.pw stream")
                           return [{
                               "name": "CCTV风云足球",
                               "extinf": line + "\n",
@@ -213,6 +214,7 @@ jobs:
                   else:
                       i += 1
 
+              print("No CCTV风云足球 epg.pw stream found")
               return []
 
           def sort_key(entry):
@@ -240,22 +242,14 @@ jobs:
           entries += read_entries("lemon.m3u", cctv5_only=True)
           entries += read_entries("guovin.m3u", cctv5_only=True)
           entries += read_entries("iptv-full.m3u", cctv5_only=True)
+          entries += read_entries("fwc.m3u", cctv5_only=False)
 
           fengyun_entries = read_fengyun_epg_stream("my_tv.m3")
 
           if fengyun_entries:
               entries = [
                   e for e in entries
-                  if e["name"] != "CCTV风云足球"
-              ]
-              entries += fengyun_entries
-
-          entries += read_entries("fwc.m3u", cctv5_only=False)
-
-          if fengyun_entries:
-              entries = [
-                  e for e in entries
-                  if e["name"] != "CCTV风云足球"
+                  if "风云足球" not in e["name"] and "风云足球" not in e["extinf"]
               ]
               entries += fengyun_entries
 
