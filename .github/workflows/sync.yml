@@ -60,14 +60,12 @@ jobs:
               "CCTV5": "CCTV5",
               "CCTV5体育": "CCTV5",
               "CCTV体育": "CCTV5",
-
               "CCTV5+": "CCTV5+",
               "CCTV5PLUS": "CCTV5+",
               "CCTV5P": "CCTV5+",
               "CCTV5+体育赛事": "CCTV5+",
               "CCTV5P体育赛事": "CCTV5+",
               "CCTV体育赛事": "CCTV5+",
-
               "CCTV风云足球": "CCTV风云足球",
           }
 
@@ -75,7 +73,6 @@ jobs:
 
           def load_epg_channels():
               epg_channels = {}
-
               try:
                   data = urllib.request.urlopen(EPG_URL, timeout=30).read()
                   xml_data = gzip.decompress(data)
@@ -87,14 +84,10 @@ jobs:
               for channel in root.findall("channel"):
                   channel_id = channel.get("id", "")
                   display = channel.find("display-name")
-
                   if display is None or not display.text:
                       continue
-
                   name = display.text.strip()
-                  key = normalize_key(name)
-
-                  epg_channels[key] = {
+                  epg_channels[normalize_key(name)] = {
                       "id": channel_id,
                       "name": name,
                   }
@@ -104,13 +97,11 @@ jobs:
           def is_blacklisted(url):
               if "http://[" in url or "https://[" in url:
                   return True
-
               return any(item in url for item in BLACKLIST)
 
           def get_channel_name(extinf):
               if "," not in extinf:
                   return ""
-
               return extinf.rsplit(",", 1)[1].strip()
 
           def find_epg_channel(original_name, epg_channels):
@@ -121,7 +112,6 @@ jobs:
                   alias_key = normalize_key(alias_name)
                   if alias_key in epg_channels:
                       return epg_channels[alias_key]
-
                   return {
                       "id": alias_name,
                       "name": alias_name,
@@ -162,7 +152,6 @@ jobs:
                   return
 
               original_name = get_channel_name(extinf)
-
               if not original_name:
                   return
 
@@ -205,23 +194,26 @@ jobs:
               except:
                   return []
 
-              entries = []
               i = 0
 
               while i < len(lines):
-                  line = lines[i]
+                  line = lines[i].strip()
 
                   if line.startswith("#EXTINF") and i + 1 < len(lines):
-                      url = lines[i + 1]
+                      url = lines[i + 1].strip()
 
                       if "CCTV风云足球" in line and "https://epg.pw/stream" in url:
-                          append_entry(entries, line, url, cctv5_only=False)
+                          return [{
+                              "name": "CCTV风云足球",
+                              "extinf": line + "\n",
+                              "url": url + "\n",
+                          }]
 
                       i += 2
                   else:
                       i += 1
 
-              return entries
+              return []
 
           def sort_key(entry):
               name = entry["name"]
@@ -249,9 +241,23 @@ jobs:
           entries += read_entries("guovin.m3u", cctv5_only=True)
           entries += read_entries("iptv-full.m3u", cctv5_only=True)
 
-          entries += read_fengyun_epg_stream("my_tv.m3")
+          fengyun_entries = read_fengyun_epg_stream("my_tv.m3")
+
+          if fengyun_entries:
+              entries = [
+                  e for e in entries
+                  if e["name"] != "CCTV风云足球"
+              ]
+              entries += fengyun_entries
 
           entries += read_entries("fwc.m3u", cctv5_only=False)
+
+          if fengyun_entries:
+              entries = [
+                  e for e in entries
+                  if e["name"] != "CCTV风云足球"
+              ]
+              entries += fengyun_entries
 
           entries.sort(key=sort_key)
 
