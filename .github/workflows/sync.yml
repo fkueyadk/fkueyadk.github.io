@@ -2,7 +2,7 @@ name: Sync IPTV
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -21,6 +21,7 @@ jobs:
           curl -L "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u" -o guovin.m3u
           curl -L --max-time 15 "http://82.156.243.185:33389/fwc.m3u" -o fwc.m3u || touch fwc.m3u
           curl -L "https://fkueyadk.github.io/iptv-full.m3u" -o iptv-full.m3u
+          curl -L "https://raw.githubusercontent.com/SarinV/My-TV/refs/heads/main/my_tv.m3" -o my_tv.m3
 
       - name: Filter, EPG normalize, sort and merge
         run: |
@@ -55,7 +56,6 @@ jobs:
                   .replace("＋", "+")
               )
 
-
           ALIASES = {
               "CCTV5": "CCTV5",
               "CCTV5体育": "CCTV5",
@@ -67,10 +67,11 @@ jobs:
               "CCTV5+体育赛事": "CCTV5+",
               "CCTV5P体育赛事": "CCTV5+",
               "CCTV体育赛事": "CCTV5+",
+
+              "CCTV风云足球": "CCTV风云足球",
           }
 
           ALIASES = {normalize_key(k): v for k, v in ALIASES.items()}
-
 
           def load_epg_channels():
               epg_channels = {}
@@ -100,20 +101,17 @@ jobs:
 
               return epg_channels
 
-
           def is_blacklisted(url):
               if "http://[" in url or "https://[" in url:
                   return True
 
               return any(item in url for item in BLACKLIST)
 
-
           def get_channel_name(extinf):
               if "," not in extinf:
                   return ""
 
               return extinf.rsplit(",", 1)[1].strip()
-
 
           def find_epg_channel(original_name, epg_channels):
               key = normalize_key(original_name)
@@ -137,11 +135,9 @@ jobs:
                   "name": original_name,
               }
 
-
           def is_cctv5_name(name):
               epg_name = find_epg_channel(name, EPG_CHANNELS)["name"]
               return epg_name in {"CCTV5", "CCTV5+"}
-
 
           def replace_channel_name(extinf, original_name, epg_channel):
               epg_id = epg_channel["id"]
@@ -160,7 +156,6 @@ jobs:
               )
 
               return extinf.rstrip("\n") + "\n"
-
 
           def append_entry(entries, extinf, url, cctv5_only=False):
               if is_blacklisted(url):
@@ -181,7 +176,6 @@ jobs:
                   "extinf": replace_channel_name(extinf, original_name, epg_channel),
                   "url": url if url.endswith("\n") else url + "\n",
               })
-
 
           def read_entries(src, cctv5_only=False):
               try:
@@ -204,6 +198,30 @@ jobs:
 
               return entries
 
+          def read_fengyun_epg_stream(src):
+              try:
+                  with open(src, "r", encoding="utf-8", errors="ignore") as f:
+                      lines = f.readlines()
+              except:
+                  return []
+
+              entries = []
+              i = 0
+
+              while i < len(lines):
+                  line = lines[i]
+
+                  if line.startswith("#EXTINF") and i + 1 < len(lines):
+                      url = lines[i + 1]
+
+                      if "CCTV风云足球" in line and "https://epg.pw/stream" in url:
+                          append_entry(entries, line, url, cctv5_only=False)
+
+                      i += 2
+                  else:
+                      i += 1
+
+              return entries
 
           def sort_key(entry):
               name = entry["name"]
@@ -214,12 +232,14 @@ jobs:
               if name == "CCTV5+":
                   return (1, name)
 
+              if name == "CCTV风云足球":
+                  return (2, name)
+
               match = re.match(r"^CCTV(\d+)$", name)
               if match:
-                  return (2, int(match.group(1)), name)
+                  return (3, int(match.group(1)), name)
 
-              return (3, name)
-
+              return (4, name)
 
           EPG_CHANNELS = load_epg_channels()
 
@@ -227,11 +247,10 @@ jobs:
 
           entries += read_entries("lemon.m3u", cctv5_only=True)
           entries += read_entries("guovin.m3u", cctv5_only=True)
-
-          # 从 iptv-full.m3u 里面提取 CCTV5 / CCTV5+，并按 EPG 名称写入
           entries += read_entries("iptv-full.m3u", cctv5_only=True)
 
-          # FWC 保留全部频道，并尽量按 EPG 名称写入
+          entries += read_fengyun_epg_stream("my_tv.m3")
+
           entries += read_entries("fwc.m3u", cctv5_only=False)
 
           entries.sort(key=sort_key)
