@@ -21,7 +21,7 @@ jobs:
           curl -L "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u" -o guovin.m3u
           curl -L --max-time 15 "http://82.156.243.185:33389/fwc.m3u" -o fwc.m3u || touch fwc.m3u
           curl -L "https://fkueyadk.github.io/iptv-full.m3u" -o iptv-full.m3u
-          curl -L "https://raw.githubusercontent.com/SarinV/My-TV/refs/heads/main/my_tv.m3" -o my_tv.m3
+          curl -L "https://raw.githubusercontent.com/SarinV/My-TV/refs/heads/main/my_tv.m3u" -o my_tv.m3u
 
       - name: Filter, EPG normalize, sort and merge
         run: |
