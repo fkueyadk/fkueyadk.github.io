@@ -1,6 +1,6 @@
 #EXTM3U x-tvg-url="http://epg.51zmt.top:8000/e1.xml.gz"
 #EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/171/202204010048_1626679603804_H32_1080.webp",group-title="央视",CCTV5
-http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5hdnew/1200/index.m3u8?msisdn=89bdf8f53b60020f1cb0559dd69f70e0&mdspid=&spid=699004&netType=0&sid=5500516171&pid=2028597139&timestamp=20260618062018&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886683&ParentNodeID=-99&assertID=5500516171&client_ip=39.98.61.247&SecurityKey=20260618062018&promotionId=&mvid=5102048712&mcid=500020&playurlVersion=WX-A1-9.6.0.4-RELEASE&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=cce06a7dc9f562c506781f3c5ea61469&ddCalcu=9c6cv4ea10w66aaae75dcc39ff1586726c05&sv=10004&ct=android
+http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5hdnew/1200/index.m3u8?msisdn=34da48f46d96f6020237fdd144de731e&mdspid=&spid=699004&netType=0&sid=5500516171&pid=2028597139&timestamp=20260618092023&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886683&ParentNodeID=-99&assertID=5500516171&client_ip=39.98.87.107&SecurityKey=20260618092023&promotionId=&mvid=5102048712&mcid=500020&playurlVersion=WX-A1-9.6.0.4-RELEASE&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=fb1484cb06561765d75c49dc0a2b5551&ddCalcu=1f5bv51a54wb8a24ac0bc0d69546c15776d5&sv=10004&ct=android
 #EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://www.xn--rgv465a.top/tvlogo/CCTV-5.png" group-title="🏀体育频道",CCTV5
 https://zby.130519.xyz/PLTV/11/224/3221225734/index.m3u8
 #EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5.png" group-title="IPTV",CCTV5
@@ -10,17 +10,21 @@ http://139.227.21.22:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5.png" group-title="IPTV",CCTV5
 http://223.78.65.165:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="6" tvg-name="CCTV5+" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/288/202204010048_1626679712843_H32_1080.webp",group-title="央视",CCTV5+
-http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=4acb1821ee329612720652c71c915c8d&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260618062018&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.98.81.170&SecurityKey=20260618062018&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.0.4-RELEASE&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=ed77926f448dbda6382710ca00de00e7&ddCalcu=7eedv07a07xe9ad2060fa4c4081d7b2d8a36&sv=10004&ct=android
+http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=6f5ced4f4bf75d34b505c8390502af9a&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260618092024&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.98.82.147&SecurityKey=20260618092024&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.0.4-RELEASE&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=a76a54248f3f23a767ecf5d18211f436&ddCalcu=6a37v46afax15a14228418df53ffc2e37a67&sv=10004&ct=android
 #EXTINF:-1 tvg-id="6" tvg-name="CCTV5+" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5%2B.png" group-title="IPTV",CCTV5+
 http://139.227.21.22:9901/tsfile/live/1011_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="6" tvg-name="CCTV5+" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5%2B.png" group-title="IPTV",CCTV5+
 http://223.78.65.165:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0
+#EXTINF:-1 tvg-id="世界杯4K回放-乌兹别克斯坦vs哥伦比亚_2026-06-18 09:30:00" tvg-name="世界杯4K回放-乌兹别克斯坦vs哥伦比亚_2026-06-18 09:30:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n032190hmmoms069ip3a5i000000000046u977pq" group-title="4K世界杯回放",世界杯4K回放-乌兹别克斯坦vs哥伦比亚_2026-06-18 09:30:00
+http://82.156.243.185:34567/xhs/4460973
 #EXTINF:-1 tvg-id="世界杯4K回放-伊拉克vs挪威_2026-06-17 05:30:00" tvg-name="世界杯4K回放-伊拉克vs挪威_2026-06-17 05:30:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n032190ghrqms069ip3a5i0000000000466fih1s" group-title="4K世界杯回放",世界杯4K回放-伊拉克vs挪威_2026-06-17 05:30:00
 http://82.156.243.185:34567/xhs/4460967
 #EXTINF:-1 tvg-id="世界杯4K回放-伊朗vs新西兰_2026-06-16 08:30:00" tvg-name="世界杯4K回放-伊朗vs新西兰_2026-06-16 08:30:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104000n032190g6ihms04746ihg" group-title="4K世界杯回放",世界杯4K回放-伊朗vs新西兰_2026-06-16 08:30:00
 http://82.156.243.185:34567/xhs/4460956
 #EXTINF:-1 tvg-id="世界杯4K回放-加拿大vs波黑_2026-06-13 01:25:00" tvg-name="世界杯4K回放-加拿大vs波黑_2026-06-13 01:25:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n032190deaq6u069ip3a5i0000000000458sdaps" group-title="4K世界杯回放",世界杯4K回放-加拿大vs波黑_2026-06-13 01:25:00
 http://82.156.243.185:34567/xhs/4459824
+#EXTINF:-1 tvg-id="世界杯4K回放-加纳vs巴拿马_2026-06-18 06:30:00" tvg-name="世界杯4K回放-加纳vs巴拿马_2026-06-18 06:30:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n032190hgmtmu069ip3a5i000000000046gqtmng" group-title="4K世界杯回放",世界杯4K回放-加纳vs巴拿马_2026-06-18 06:30:00
+http://82.156.243.185:34567/xhs/4460976
 #EXTINF:-1 tvg-id="世界杯4K回放-卡塔尔vs瑞士_2026-06-14 02:30:00" tvg-name="世界杯4K回放-卡塔尔vs瑞士_2026-06-14 02:30:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n032190dpson2069ip3a5i0000000000424lkani" group-title="4K世界杯回放",世界杯4K回放-卡塔尔vs瑞士_2026-06-14 02:30:00
 http://82.156.243.185:34567/xhs/4460941
 #EXTINF:-1 tvg-id="世界杯4K回放-奥地利vs约旦_2026-06-17 11:30:00" tvg-name="世界杯4K回放-奥地利vs约旦_2026-06-17 11:30:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n032190grg372069ip3a5i000000000045qemu96" group-title="4K世界杯回放",世界杯4K回放-奥地利vs约旦_2026-06-17 11:30:00
