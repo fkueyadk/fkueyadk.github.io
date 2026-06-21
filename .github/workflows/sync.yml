@@ -233,8 +233,6 @@ jobs:
           entries += read_entries("lemon.m3u", cctv5_only=True)
           entries += read_entries("guovin.m3u", cctv5_only=True)
           entries += read_entries("iptv-full.m3u", iptv_full_sports_only=True)
-          entries += read_entries("fwc.m3u", cctv5_only=False)
-
           fengyun_entries = read_fengyun_epg_stream("my_tv.m3u")
 
           if fengyun_entries:
@@ -259,6 +257,22 @@ jobs:
               seen.add(key)
               result.append(entry["extinf"])
               result.append(entry["url"])
+
+          # Append fwc.m3u as-is: no filtering, no sorting, no EPG rewriting, no de-duplication.
+          try:
+              raw_fwc = open("fwc.m3u", "r", encoding="utf-8", errors="ignore").read()
+          except Exception as e:
+              print(f"Failed to read fwc.m3u: {e}")
+              raw_fwc = ""
+
+          if raw_fwc:
+              if result and not result[-1].endswith("\n"):
+                  result.append("\n")
+              result.append("\n# ===== fwc.m3u raw source start =====\n")
+              result.append(raw_fwc)
+              if not raw_fwc.endswith("\n"):
+                  result.append("\n")
+              result.append("# ===== fwc.m3u raw source end =====\n")
 
           with open("iptv.m3u", "w", encoding="utf-8") as f:
               f.writelines(result)
