@@ -236,6 +236,14 @@ jobs:
 
               return extinf.rsplit(",", 1)[1].strip()
 
+          def is_allowed_channel(name):
+              upper_name = name.upper()
+              return (
+                  "CCTV" in upper_name
+                  or "央视" in name
+                  or "卫视" in name
+              )
+
           def find_epg_channel(name, epg_channels):
               key = normalize_key(name)
               alias_name = CHANNEL_ALIASES.get(key)
@@ -306,6 +314,9 @@ jobs:
               original_name = get_channel_name(block[extinf_index])
 
               if not original_name:
+                  return None
+
+              if not is_allowed_channel(original_name):
                   return None
 
               epg_channel = find_epg_channel(original_name, epg_channels)
