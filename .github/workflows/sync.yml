@@ -105,6 +105,18 @@ jobs:
               epg_name = find_epg_channel(name, EPG_CHANNELS)["name"]
               return epg_name in {"CCTV5", "CCTV5+"}
 
+          IPTV_FULL_SPORTS_CHANNELS = {
+              normalize_key("CCTV5"),
+              normalize_key("CCTV5+"),
+              normalize_key("CCTV风云足球"),
+              normalize_key("CCTV央视台球"),
+              normalize_key("卫视体育"),
+              normalize_key("卫视体育2"),
+          }
+
+          def is_iptv_full_sports_channel(name):
+              return normalize_key(name) in IPTV_FULL_SPORTS_CHANNELS
+
           def replace_channel_name(extinf, original_name, epg_channel):
               epg_id = epg_channel["id"]
               epg_name = epg_channel["name"]
@@ -123,7 +135,7 @@ jobs:
 
               return extinf.rstrip("\n") + "\n"
 
-          def append_entry(entries, extinf, url, cctv5_only=False):
+          def append_entry(entries, extinf, url, cctv5_only=False, iptv_full_sports_only=False):
               if is_blacklisted(url):
                   return
 
@@ -134,6 +146,9 @@ jobs:
               if cctv5_only and not is_cctv5_name(original_name):
                   return
 
+              if iptv_full_sports_only and not is_iptv_full_sports_channel(original_name):
+                  return
+
               epg_channel = find_epg_channel(original_name, EPG_CHANNELS)
 
               entries.append({
@@ -142,7 +157,7 @@ jobs:
                   "url": url if url.endswith("\n") else url + "\n",
               })
 
-          def read_entries(src, cctv5_only=False):
+          def read_entries(src, cctv5_only=False, iptv_full_sports_only=False):
               try:
                   with open(src, "r", encoding="utf-8", errors="ignore") as f:
                       lines = f.readlines()
@@ -156,7 +171,13 @@ jobs:
                   line = lines[i]
 
                   if line.startswith("#EXTINF") and i + 1 < len(lines):
-                      append_entry(entries, line, lines[i + 1], cctv5_only)
+                      append_entry(
+                          entries,
+                          line,
+                          lines[i + 1],
+                          cctv5_only,
+                          iptv_full_sports_only,
+                      )
                       i += 2
                   else:
                       i += 1
@@ -211,7 +232,7 @@ jobs:
 
           entries += read_entries("lemon.m3u", cctv5_only=True)
           entries += read_entries("guovin.m3u", cctv5_only=True)
-          entries += read_entries("iptv-full.m3u", cctv5_only=True)
+          entries += read_entries("iptv-full.m3u", iptv_full_sports_only=True)
           entries += read_entries("fwc.m3u", cctv5_only=False)
 
           fengyun_entries = read_fengyun_epg_stream("my_tv.m3u")
