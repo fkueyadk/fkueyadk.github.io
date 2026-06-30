@@ -1,6 +1,6 @@
 #EXTM3U x-tvg-url="http://epg.51zmt.top:8000/e1.xml.gz"
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/171/202204010048_1626679603804_H32_1080.webp",group-title="央视",CCTV5
-http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5hdnew/1200/index.m3u8?msisdn=8365dc44d046af19556d582e97a49423&mdspid=&spid=699004&netType=0&sid=5500516171&pid=2028597139&timestamp=20260701022030&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886683&ParentNodeID=-99&assertID=5500516171&client_ip=39.98.82.147&SecurityKey=20260701022030&promotionId=&mvid=5102048712&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=7330485042b2e3a81a5f130cee927fd7&ddCalcu=77d3vf3a70w24a98e5e0c4023b12fe53aa18&sv=10004&ct=android
+http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5hdnew/1200/index.m3u8?msisdn=c7c5b0f2cb4e3b8458bca42bdcd66bf3&mdspid=&spid=699004&netType=0&sid=5500516171&pid=2028597139&timestamp=20260701042025&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886683&ParentNodeID=-99&assertID=5500516171&client_ip=39.98.82.147&SecurityKey=20260701042025&promotionId=&mvid=5102048712&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=6761acb5ca3bce0160bb26115b8c4066&ddCalcu=6667v06a41wcaa8cbb551c1a632bbcbe0061&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://www.xn--rgv465a.top/tvlogo/CCTV-5.png" group-title="🏀体育频道",CCTV5
 https://zby.130519.xyz/PLTV/11/224/3221225734/index.m3u8
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5.png" group-title="IPTV",CCTV5
@@ -10,7 +10,7 @@ http://139.227.21.22:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5.png" group-title="IPTV",CCTV5
 http://223.78.65.165:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/288/202204010048_1626679712843_H32_1080.webp",group-title="央视",CCTV5+
-http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=d8b1211ed4ffca5c4914fc77f55fec0e&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260701022032&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.98.61.247&SecurityKey=20260701022032&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=175927f3e94bfc2a199f8cea64d47014&ddCalcu=4117v05a79x42ad74f63aee9c48bff9c921a&sv=10004&ct=android
+http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=888a02bfbc37a049de7866f0b585d8fa&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260701042026&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.98.82.147&SecurityKey=20260701042026&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=114b08c57cabf8bbc2fd5c15074e1e6c&ddCalcu=c161ve4a1bxe0a487c05571cca5bdff82bcb&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5%2B.png" group-title="IPTV",CCTV5+
 http://139.227.21.22:9901/tsfile/live/1011_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5%2B.png" group-title="IPTV",CCTV5+
@@ -198,6 +198,8 @@ http://82.156.243.185:34567/xhs/4459720
 http://82.156.243.185:34567/xhs/4459718
 #EXTINF:-1 tvg-name="世界杯4K回放-荷兰vs摩洛哥_2026-06-30 08:00:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n0321s7lpic7k06k77ao0jp400000000064n0t84" group-title="4K世界杯回放",世界杯4K回放-荷兰vs摩洛哥_2026-06-30 08:00:00
 http://82.156.243.185:34567/xhs/4459719
+#EXTINF:-1 tvg-name="世界杯4K回放-科特迪瓦vs挪威_2026-07-01 00:00:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n0321t544e8nu06k77ao0jp40000000006c2oao6" group-title="4K世界杯回放",世界杯4K回放-科特迪瓦vs挪威_2026-07-01 00:00:00
+http://82.156.243.185:34567/xhs/4459722
 #EXTINF:-1 tvg-name="16vos de Final: Costa de Marfil v. Noruega" group-title="4K杜比视界世界杯正赛",16vos de Final: Costa de Marfil v. Noruega_2026-07-01 00:40:00_1782837600000
 https://cdn.99998888.cc/event/e6091e35-b511-33e0-b9e5-4da25a21f4c8?prefix=https://cdn.99998888.cc
 #EXTINF:-1 tvg-name="16vos de Final: Francia v. Suecia" group-title="4K杜比视界世界杯正赛",16vos de Final: Francia v. Suecia_2026-07-01 03:10:00_1782846600000
