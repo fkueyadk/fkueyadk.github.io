@@ -1,6 +1,6 @@
 #EXTM3U x-tvg-url="http://epg.51zmt.top:8000/e1.xml.gz"
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/171/202204010048_1626679603804_H32_1080.webp",group-title="央视",CCTV5
-http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5hdnew/1200/index.m3u8?msisdn=352ca6786b7a68139dd541ce9686e94d&mdspid=&spid=699004&netType=0&sid=5500516171&pid=2028597139&timestamp=20260702202053&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886683&ParentNodeID=-99&assertID=5500516171&client_ip=39.103.182.111&SecurityKey=20260702202053&promotionId=&mvid=5102048712&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=e799ac8bdf4c03b8b84dfe0dce36ac0b&ddCalcu=be07vc9aa9w6aa3ce8cbdd0fe4fcd0438bb8&sv=10004&ct=android
+http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5hdnew/1200/index.m3u8?msisdn=70ad2a60693296fedeed7d80b3ba656e&mdspid=&spid=699004&netType=0&sid=5500516171&pid=2028597139&timestamp=20260703002058&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886683&ParentNodeID=-99&assertID=5500516171&client_ip=39.103.188.159&SecurityKey=20260703002058&promotionId=&mvid=5102048712&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=1078471955993ee31d64159bec212c89&ddCalcu=9180vc7a28w14a27c1e9b5955919436ede13&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://www.xn--rgv465a.top/tvlogo/CCTV-5.png" group-title="🏀体育频道",CCTV5
 https://zby.130519.xyz/PLTV/11/224/3221225734/index.m3u8
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5.png" group-title="IPTV",CCTV5
@@ -12,7 +12,7 @@ http://223.78.65.165:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
 http://112.27.235.94:8000/hls/5/index.m3u8
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/288/202204010048_1626679712843_H32_1080.webp",group-title="央视",CCTV5+
-http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=f31b7c2140a7aad674ddbfa698e304e4&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260702202055&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.103.182.111&SecurityKey=20260702202055&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=364d508ac721dbfb8db98addf3e77a9c&ddCalcu=c396va4a7dx75ae038fadcd7a2819dbbdf8b&sv=10004&ct=android
+http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=ee6d94320da8088d677cbd5c10484c20&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260703002100&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.103.182.111&SecurityKey=20260703002100&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=fb34b718998eb7a4db4e6d3b54955d0a&ddCalcu=af0bvd3a54x5ba974158b939d86eeb47bad4&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5%2B.png" group-title="IPTV",CCTV5+
 http://139.227.21.22:9901/tsfile/live/1011_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5%2B.png" group-title="IPTV",CCTV5+
@@ -214,16 +214,16 @@ http://82.156.243.185:34567/xhs/4459724
 http://82.156.243.185:34567/xhs/4459726
 #EXTINF:-1 tvg-name="世界杯4K回放-美国vs波黑_2026-07-02 07:30:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n0321s7mub6na06k77ao0jp40000000005rguc0g" group-title="4K世界杯回放",世界杯4K回放-美国vs波黑_2026-07-02 07:30:00
 http://82.156.243.185:34567/xhs/4459725
-#EXTINF:-1 tvg-name="16vos de Final: Inglaterra v. RD del Congo" group-title="4K杜比视界世界杯正赛",16vos de Final: Inglaterra v. RD del Congo_2026-07-01 23:40:00_1782920400000
-https://cdn.99998888.cc/event/3a9290ea-1613-3cfe-b6e6-a3d646eef522?prefix=https://cdn.99998888.cc
-#EXTINF:-1 tvg-name="16vos de Final: Bélgica v. Senegal" group-title="4K杜比视界世界杯正赛",16vos de Final: Bélgica v. Senegal_2026-07-02 02:10:00_1782929400000
-https://cdn.99998888.cc/event/1c3cad1c-c380-301b-aadb-4225087e7903?prefix=https://cdn.99998888.cc
-#EXTINF:-1 tvg-name="16vos de Final: Estados Unidos v. Bosnia y Herzegovina" group-title="4K杜比视界世界杯正赛",16vos de Final: Estados Unidos v. Bosnia y Herzegovina_2026-07-02 06:10:00_1782943800000
-https://cdn.99998888.cc/event/12a42388-ec40-3819-bdbe-964d02a75b1d?prefix=https://cdn.99998888.cc
 #EXTINF:-1 tvg-name="16vos de Final: España v. Austria" group-title="4K杜比视界世界杯正赛",16vos de Final: España v. Austria_2026-07-03 02:40:00_1783017600000
 https://cdn.99998888.cc/event/10a8d645-3718-3b68-be71-bd877d632fb6?prefix=https://cdn.99998888.cc
 #EXTINF:-1 tvg-name="16vos de Final: Portugal v. Croacia" group-title="4K杜比视界世界杯正赛",16vos de Final: Portugal v. Croacia_2026-07-03 05:10:00_1783026600000
 https://cdn.99998888.cc/event/51d06c5c-1394-3d2b-9633-ac2787e10f96?prefix=https://cdn.99998888.cc
 #EXTINF:-1 tvg-name="16vos de Final: Suiza v. Argelia" group-title="4K杜比视界世界杯正赛",16vos de Final: Suiza v. Argelia_2026-07-03 09:10:00_1783041000000
 https://cdn.99998888.cc/event/7c89f62b-3676-31e6-9640-637cfcc23127?prefix=https://cdn.99998888.cc
+#EXTINF:-1 tvg-name="16vos de Final: Australia v. Egipto" group-title="4K杜比视界世界杯正赛",16vos de Final: Australia v. Egipto_2026-07-04 01:40:00_1783100400000
+https://cdn.99998888.cc/event/4327060a-72c2-343a-823e-26a838f12bc1?prefix=https://cdn.99998888.cc
+#EXTINF:-1 tvg-name="16vos de Final: Argentina v. Cabo Verde" group-title="4K杜比视界世界杯正赛",16vos de Final: Argentina v. Cabo Verde_2026-07-04 04:10:00_1783109400000
+https://cdn.99998888.cc/event/681dfdcc-8f6b-3d56-a16f-fd4a538921bd?prefix=https://cdn.99998888.cc
+#EXTINF:-1 tvg-name="16vos de Final: Colombia v. Ghana" group-title="4K杜比视界世界杯正赛",16vos de Final: Colombia v. Ghana_2026-07-04 08:10:00_1783123800000
+https://cdn.99998888.cc/event/68d6c109-2275-3c0c-afae-814defe21c9e?prefix=https://cdn.99998888.cc
 # ===== fwc.m3u raw source end =====
