@@ -1,6 +1,6 @@
 #EXTM3U x-tvg-url="http://epg.51zmt.top:8000/e1.xml.gz"
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/171/202204010048_1626679603804_H32_1080.webp",group-title="央视",CCTV5
-http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5hdnew/1200/index.m3u8?msisdn=924825b133fa9f9790077a41dc944554&mdspid=&spid=699004&netType=0&sid=5500516171&pid=2028597139&timestamp=20260703232050&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886683&ParentNodeID=-99&assertID=5500516171&client_ip=39.103.182.111&SecurityKey=20260703232050&promotionId=&mvid=5102048712&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=7a36c05ae8c2306e7830b32644ef66ad&ddCalcu=d7aav63a66wfcae0454a6e283cb20330867e&sv=10004&ct=android
+http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5hdnew/1200/index.m3u8?msisdn=14c0b5ab6bc375ff9a5746a4af3d2209&mdspid=&spid=699004&netType=0&sid=5500516171&pid=2028597139&timestamp=20260704012039&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886683&ParentNodeID=-99&assertID=5500516171&client_ip=39.103.182.111&SecurityKey=20260704012039&promotionId=&mvid=5102048712&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=e844385ee610ad4263cceaca7109b520&ddCalcu=0e28v54ab4w93a08157eaec6a1e0cacd3462&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://www.xn--rgv465a.top/tvlogo/CCTV-5.png" group-title="🏀体育频道",CCTV5
 https://zby.130519.xyz/PLTV/11/224/3221225734/index.m3u8
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5.png" group-title="IPTV",CCTV5
@@ -12,7 +12,7 @@ http://223.78.65.165:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
 http://112.46.85.60:8009/hls/503/index.m3u8
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/288/202204010048_1626679712843_H32_1080.webp",group-title="央视",CCTV5+
-http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=b72be812a03ed4b0f7278b4aba84a6a0&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260703232052&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.103.182.111&SecurityKey=20260703232052&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=9ec257b1b6a0fb5c495bef7536ae03f2&ddCalcu=29fev3ca02xe5aa76b315b76fae0bf5b954c&sv=10004&ct=android
+http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=6bb18c8958d98423bf73c71307ff7747&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260704012041&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.103.182.111&SecurityKey=20260704012041&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=1e5d4ff5bab3f7b9aeeb1c98c86cc856&ddCalcu=615ev85acdxc4a6f8fc58b9acb13bfe7eba9&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5%2B.png" group-title="IPTV",CCTV5+
 http://139.227.21.22:9901/tsfile/live/1011_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5%2B.png" group-title="IPTV",CCTV5+
@@ -46,19 +46,19 @@ http://82.156.243.185:36888/av3a/cctv16.m3u8
 http://82.156.243.185:36888/av3a/cctv4k.m3u8
 #EXTINF:-1 tvg-name="cctv8k" tvg-logo="https://cdn.jsdelivr.net/gh/sparkssssssssss/epg/logo/cctv8k.png" group-title="AV3A频道",cctv8k-av3a
 http://82.156.243.185:36888/av3a/cctv8k.m3u8
-#EXTINF:-1 tvg-id="直播占位01" tvg-name="占位01" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",占位01
+#EXTINF:-1 tvg-id="赛事1-主房间" tvg-name="主房间" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",主房间
 http://82.156.243.185:32323/live/1.flv
-#EXTINF:-1 tvg-id="直播占位02" tvg-name="占位02" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",占位02
+#EXTINF:-1 tvg-id="赛事1-解说1" tvg-name="解说1" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",解说1
 http://82.156.243.185:32323/live/2.flv
-#EXTINF:-1 tvg-id="直播占位03" tvg-name="占位03" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",占位03
+#EXTINF:-1 tvg-id="赛事1-解说2" tvg-name="解说2" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",解说2
 http://82.156.243.185:32323/live/3.flv
-#EXTINF:-1 tvg-id="直播占位04" tvg-name="占位04" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",占位04
+#EXTINF:-1 tvg-id="赛事1-解说3" tvg-name="解说3" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",解说3
 http://82.156.243.185:32323/live/4.flv
-#EXTINF:-1 tvg-id="直播占位05" tvg-name="占位05" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",占位05
+#EXTINF:-1 tvg-id="赛事1-解说4" tvg-name="解说4" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",解说4
 http://82.156.243.185:32323/live/5.flv
-#EXTINF:-1 tvg-id="直播占位06" tvg-name="占位06" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",占位06
+#EXTINF:-1 tvg-id="赛事1-解说5" tvg-name="解说5" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",解说5
 http://82.156.243.185:32323/live/6.flv
-#EXTINF:-1 tvg-id="直播占位07" tvg-name="占位07" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",占位07
+#EXTINF:-1 tvg-id="赛事1-解说6" tvg-name="解说6" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",解说6
 http://82.156.243.185:32323/live/7.flv
 #EXTINF:-1 tvg-id="直播占位08" tvg-name="占位08" tvg-logo="https://cdn.jsdelivr.net/gh/jkwu5472/first/WorldCup.png" group-title="4K中文多角度解说",占位08
 http://82.156.243.185:32323/live/8.flv
