@@ -1,6 +1,6 @@
 #EXTM3U x-tvg-url="http://epg.51zmt.top:8000/e1.xml.gz"
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/171/202204010048_1626679603804_H32_1080.webp",group-title="央视",CCTV5
-http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5hdnew/1200/index.m3u8?msisdn=30afb5ac11c179c39e01dfab57d4e5b9&mdspid=&spid=699004&netType=0&sid=5500516171&pid=2028597139&timestamp=20260704072040&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886683&ParentNodeID=-99&assertID=5500516171&client_ip=39.103.182.111&SecurityKey=20260704072040&promotionId=&mvid=5102048712&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=703881addffacfc9481a564c1e2b7135&ddCalcu=5730v13a78wb8a21ea1dcd4f6f5aac1f8c49&sv=10004&ct=android
+http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5hdnew/1200/index.m3u8?msisdn=7913a75f455148187f68ac8e1cc128f8&mdspid=&spid=699004&netType=0&sid=5500516171&pid=2028597139&timestamp=20260704122038&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886683&ParentNodeID=-99&assertID=5500516171&client_ip=39.103.182.111&SecurityKey=20260704122038&promotionId=&mvid=5102048712&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=677bc9a937e7cdc4d6f7b2c06c683918&ddCalcu=8617v97a3bw8ca69ca6903c72eb77cfd6cd4&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://www.xn--rgv465a.top/tvlogo/CCTV-5.png" group-title="🏀体育频道",CCTV5
 https://zby.130519.xyz/PLTV/11/224/3221225734/index.m3u8
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5.png" group-title="IPTV",CCTV5
@@ -12,7 +12,7 @@ http://223.78.65.165:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
 http://112.46.85.60:8009/hls/503/index.m3u8
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/288/202204010048_1626679712843_H32_1080.webp",group-title="央视",CCTV5+
-http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=25189bb21bcbf150ad2660a1774572b5&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260704072042&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.103.182.111&SecurityKey=20260704072042&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=7a736833e127d1ddfeba44d622d17b3f&ddCalcu=f73avb7a73x16ad823236ed14247adb1edfd&sv=10004&ct=android
+http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=17cf3906d6142cbd7d11db05fab76a37&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260704122041&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.103.182.111&SecurityKey=20260704122041&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.6.1.6-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=a6141a313c8bfaf7558f2499b58fd5bc&ddCalcu=cab6v51ad4xf1a8a53b1939c482bff8a5f57&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5%2B.png" group-title="IPTV",CCTV5+
 http://139.227.21.22:9901/tsfile/live/1011_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://ghfast.top/https://raw.githubusercontent.com/Jarrey/iptv_logo/main/tv/CCTV5%2B.png" group-title="IPTV",CCTV5+
@@ -218,14 +218,12 @@ http://82.156.243.185:34567/xhs/4459727
 http://82.156.243.185:34567/xhs/4459729
 #EXTINF:-1 tvg-name="世界杯4K回放-澳大利亚vs埃及_2026-07-04 01:30:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n0321tihv8sna06k77ao0jp40000000006j30r04" group-title="4K世界杯回放",世界杯4K回放-澳大利亚vs埃及_2026-07-04 01:30:00
 http://82.156.243.185:34567/xhs/4459797
-#EXTINF:-1 tvg-name="16vos de Final: Australia v. Egipto" group-title="4K杜比视界世界杯正赛",16vos de Final: Australia v. Egipto_2026-07-04 01:40:00_1783100400000
-https://cdn.99998888.cc/event/4327060a-72c2-343a-823e-26a838f12bc1?prefix=https://cdn.99998888.cc
-#EXTINF:-1 tvg-name="16vos de Final: Argentina v. Cabo Verde" group-title="4K杜比视界世界杯正赛",16vos de Final: Argentina v. Cabo Verde_2026-07-04 04:10:00_1783109400000
-https://cdn.99998888.cc/event/681dfdcc-8f6b-3d56-a16f-fd4a538921bd?prefix=https://cdn.99998888.cc
+#EXTINF:-1 tvg-name="世界杯4K回放-阿根廷vs佛得角_2026-07-04 05:05:00" tvg-logo="https://growth-img.xhscdn.com/ditto/104100n0321td0q567o06k77ao0jp40000000005ngimok" group-title="4K世界杯回放",世界杯4K回放-阿根廷vs佛得角_2026-07-04 05:05:00
+http://82.156.243.185:34567/xhs/4459731
 #EXTINF:-1 tvg-name="16vos de Final: Colombia v. Ghana" group-title="4K杜比视界世界杯正赛",16vos de Final: Colombia v. Ghana_2026-07-04 08:10:00_1783123800000
-https://cdn.99998888.cc/event/68d6c109-2275-3c0c-afae-814defe21c9e?prefix=https://cdn.99998888.cc
+https://static.71890322.cc/event/68d6c109-2275-3c0c-afae-814defe21c9e?prefix=https://static.71890322.cc
 #EXTINF:-1 tvg-name="8vos de Final: Canadá v. Marruecos" group-title="4K杜比视界世界杯正赛",8vos de Final: Canadá v. Marruecos_2026-07-05 00:40:00_1783183200000
-https://cdn.99998888.cc/event/2c495a06-411d-37b7-b40c-8a967674d667?prefix=https://cdn.99998888.cc
+https://static.71890322.cc/event/2c495a06-411d-37b7-b40c-8a967674d667?prefix=https://static.71890322.cc
 #EXTINF:-1 tvg-name="8vos de Final: Paraguay v. Francia" group-title="4K杜比视界世界杯正赛",8vos de Final: Paraguay v. Francia_2026-07-05 03:10:00_1783192200000
-https://cdn.99998888.cc/event/1db13ffe-8a93-38dc-96db-02775070da8b?prefix=https://cdn.99998888.cc
+https://static.71890322.cc/event/1db13ffe-8a93-38dc-96db-02775070da8b?prefix=https://static.71890322.cc
 # ===== fwc.m3u raw source end =====
