@@ -11,7 +11,7 @@ http://198.204.228.26/live/cctv5hd.m3u8
 https://zby.130519.xyz/PLTV/11/224/3221225734/index.m3u8
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/516/288/202204010048_1626679712843_H32_1080.webp",group-title="央视",CCTV5+
 http://gslbmgsplive.miguvideo.com/wd_r2/cctv/cctv5plusnew/1200/index.m3u8?msisdn=bd84e60f40acaa039c607c072c69f543&mdspid=&spid=699004&netType=0&sid=5500516288&pid=2028597139&timestamp=20260818072047&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=641886773&ParentNodeID=-99&assertID=5500516288&client_ip=39.103.182.111&SecurityKey=20260818072047&promotionId=&mvid=5102048803&mcid=500020&playurlVersion=WX-A1-9.8.1-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=c33b1277ae09b88fc5bca17139c0ad80&ddCalcu=0c83vd3aabx01ac297371a7e10a9cbb858cf&sv=10004&ct=android
-#EXTINF:-1 tvg-id="CCTV风云足球" tvg-name="CCTV风云足球" tvg-logo="https://tb.zbds.top/logo/CCTV风云足球.png" group-title="央视频道",CCTV风云足球
+#EXTINF:-1 tvg-name="CCTV风云足球" tvg-id="风云足球" tvg-logo="https://tb.zbds.top/logo/CCTV风云足球.png" group-title="央视频道", CCTV风云足球
 https://epg.pw/stream/6d7bf281e3d739806a73f5373acaa6e01988ec9739f5ac1355ce54b47a928472.m3u8
 
 # ===== fwc.m3u raw source start =====
